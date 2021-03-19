@@ -489,3 +489,6 @@ config SND_SOC_SIA81XX
 	help
 	This option enables support for SIA81XX Smart K PA.
 #endif
+
+source "sound/soc/mediatek/aw87559/Kconfig"
+source "sound/soc/mediatek/fs1815n/Kconfig"
