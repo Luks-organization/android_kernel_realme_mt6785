@@ -86,6 +86,7 @@
  *                              C O N S T A N T S
  *******************************************************************************
  */
+#define IW_AUTH_WPA_VERSION_WPA3        0x00000008
 
 #define IW_AUTH_WPA_VERSION_WPA3        0x00000008
 
