@@ -160,7 +160,6 @@ TRACE_EVENT(sched_kthread_work_execute_end,
 
 	TP_printk("work struct %p: function %ps", __entry->work, __entry->function)
 );
->>>>>>> v4.14.356-openela-rc1
 
 /*
  * Tracepoint for waking up a task:

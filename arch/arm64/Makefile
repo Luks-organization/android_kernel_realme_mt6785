@@ -64,6 +64,7 @@ KBUILD_AFLAGS   += -march=armv8.2-a+crypto+fp16+dotprod+nosve -mcpu=cortex-a55
 
 ifeq ($(CONFIG_LD_IS_LLD), y)
 KBUILD_LDFLAGS  += -mllvm -mcpu=cortex-a76
+endif
 
 ifeq ($(CONFIG_COMPAT_VDSO), y)
   CROSS_COMPILE_COMPAT ?= $(CONFIG_CROSS_COMPILE_COMPAT:"%"=%)
