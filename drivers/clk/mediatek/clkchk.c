@@ -237,13 +237,15 @@ static void print_enabled_clks(void)
 	off_pn = clkchk_cfg->off_pll_names;
 
 	for (; *cn; cn++) {
-		int valid = 0;
-		struct clk *c = __clk_lookup(*cn);
-		c_hw = __clk_get_hw(c);
+	        int valid = 0;
+		struct clk *c;
 		struct clk_hw *p_hw;
 		const char *c_name;
 		const char *p_name;
 		const char * const *pn;
+		
+		c = __clk_lookup(*cn);
+		c_hw = __clk_get_hw(c);
 
 		if (IS_ERR_OR_NULL(c) || !c_hw)
 			continue;
