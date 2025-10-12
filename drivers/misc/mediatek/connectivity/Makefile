@@ -52,10 +52,12 @@ endif
         export CONFIG_MTK_COMBO_WIFI_HIF=axi
         export MTK_COMBO_CHIP=CONNAC
         export WLAN_CHIP_ID=6785
+        export BT_PLATFORM=6785
         export MTK_ANDROID_WMT=y
         export MTK_ANDROID_EMI=y
         export WIFI_IP_SET=2
         export WIFI_ECO_VER=1
+        export MTK_WLAN_SERVICE=yes
         export CFG_FM_CHIP_ID=6785
         export CFG_FM_CHIP=mt6631
         export ADAPTOR_OPTS=$(MTK_COMBO_CHIP)
