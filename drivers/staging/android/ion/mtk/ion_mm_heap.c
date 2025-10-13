@@ -29,12 +29,12 @@
 #include <linux/sched/task.h>
 #include <linux/sched/signal.h>
 #include <linux/sched/clock.h>
-#include "mtk/mtk_ion.h"
+#include "mtk_ion.h"
 #include "ion_profile.h"
 #include "ion_drv_priv.h"
 #include "ion_fb_heap.h"
 #include "ion_priv.h"
-#include "mtk/ion_drv.h"
+#include "ion_drv.h"
 #include "ion_sec_heap.h"
 #include "aee.h"
 
@@ -298,7 +298,7 @@ int ion_get_domain_id(int from_kernel, int *port)
 static int ion_mm_heap_phys(struct ion_heap *heap, struct ion_buffer *buffer,
 			    ion_phys_addr_t *addr, size_t *len);
 
-static int ion_mm_heap_init_domain(struct ion_mm_buffer_info *buffer_info,
+static int __maybe_unused ion_mm_heap_init_domain(struct ion_mm_buffer_info *buffer_info,
 				   unsigned int domain)
 {
 #if defined(CONFIG_MTK_IOMMU_PGTABLE_EXT) && \
@@ -2172,10 +2172,12 @@ long ion_mm_ioctl(struct ion_client *client, unsigned int cmd,
 			break;
 		}
 
+		buffer = ion_handle_buffer(kernel_handle);
+		buffer_type = buffer->heap->type;
 		if ((int)buffer->heap->type == ION_HEAP_TYPE_MULTIMEDIA) {
-			struct ion_mm_buffer_info *buffer_info =
-			    buffer->priv_virt;
+                        struct ion_mm_buffer_info *buffer_info __maybe_unused = buffer->priv_virt;
 			enum ION_MM_CMDS mm_cmd = param.mm_cmd;
+			int domain_idx = 0;
 			ion_phys_addr_t phy_addr;
 
 			/* make sure get_iova can't break by config_buffer */
@@ -2185,8 +2187,8 @@ long ion_mm_ioctl(struct ion_client *client, unsigned int cmd,
 					"get iova error:%d-%d,name %16.s!!!\n",
 				     param.get_phys_param.module_id,
 				     buffer->heap->type, client->name);
-				mutex_unlock(&buffer->lock);
 				ion_drv_put_kernel_handle(kernel_handle);
+				mutex_unlock(&buffer->lock);
 				return -EFAULT;
 			}
 
@@ -2216,7 +2218,7 @@ long ion_mm_ioctl(struct ion_client *client, unsigned int cmd,
 			param.get_phys_param.phy_addr = phy_addr;
 
 			mutex_unlock(&buffer->lock);
-		} else if (buffer_type == ION_HEAP_TYPE_MULTIMEDIA_SEC) {
+                } else if ((enum mtk_ion_heap_type)buffer_type == ION_HEAP_TYPE_MULTIMEDIA_SEC) {
 			struct ion_heap *sec_heap;
 			ion_phys_addr_t phy_addr;
 			size_t len;

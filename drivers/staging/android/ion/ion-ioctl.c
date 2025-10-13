@@ -22,7 +22,8 @@
 #include "ion.h"
 #include "ion_priv.h"
 #include "compat_ion.h"
-#include "mtk_ion.h"
+#include "mtk/mtk_ion.h"
+#include "mtk/ion_drv.h"
 
 union ion_ioctl_arg {
 	struct ion_fd_data fd;
