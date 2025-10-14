@@ -35,8 +35,13 @@ function compile_kernel() {
     source ~/.profile || true
 
     export LC_ALL=C
-    export USE_CCACHE=1
     export ARCH=arm64
+    export USE_CCACHE=1
+    export CCACHE_COMPRESS=1
+    export CCACHE_EXEC=/usr/bin/ccache
+    export CCACHE_DIR=~/.ccache
+    ccache -M 50G
+    ccache -o compression=true
 
     make O=out ARCH=arm64 salaa_defconfig
 
