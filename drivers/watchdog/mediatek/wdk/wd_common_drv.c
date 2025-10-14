@@ -572,10 +572,9 @@ static void kwdt_process_kick(int local_bit, int cpu,
 	 * [wdt-k]: kick watchdog actaully, this log is more important thus
 	 *	    using printk_deferred to ensure being printed.
 	 */
-	if (msg_buf[5] != 'k')
+	if (ret >= 0)
 		pr_info("%s", msg_buf);
-	else
-		printk_deferred("%s", msg_buf);
+
 #ifdef CONFIG_MTK_TICK_BROADCAST_AEE_DUMP
 	if (dump_timeout)
 		dump_wdk_bind_info();
