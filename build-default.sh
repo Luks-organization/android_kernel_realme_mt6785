@@ -43,7 +43,7 @@ function compile_kernel() {
     ccache -M 50G
     ccache -o compression=true
 
-    make O=out ARCH=arm64 salaa_defconfig
+    make O=out ARCH=arm64 MT6785_defconfig
 
     PATH="${PWD}/clang/bin:${PATH}" \
 
@@ -68,7 +68,7 @@ function zip_kernel() {
     git clone --depth=1 https://github.com/Luks-organization/AnyKernel3 AnyKernel || error_exit "Failed to clone AnyKernel3"
     cp "$KERNEL_IMAGE" AnyKernel || error_exit "Failed to copy kernel image"
     cd AnyKernel || exit
-    zip -r9 4.14.456-openela-rc1-${DATE}-salaa.zip * || error_exit "Zipping failed"
+    zip -r9 4.14.456-openela-rc1-${DATE}-MT6785.zip * || error_exit "Zipping failed"
     log "Kernel zip created: AnyKernel/4.14.456-Openela-KERNEL-${DATE}-salaa.zip"
 }
 
