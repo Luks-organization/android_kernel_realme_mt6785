@@ -27,11 +27,11 @@
 #include <linux/kthread.h>
 #include <linux/sched/task.h>
 #include <linux/sched/signal.h>
-#include "mtk_ion.h"
+#include "mtk/mtk_ion.h"
 #include "ion_profile.h"
 #include "ion_drv_priv.h"
 #include "ion_priv.h"
-#include "ion_drv.h"
+#include "mtk/ion_drv.h"
 #include "ion_sec_heap.h"
 
 #if defined(CONFIG_MTK_IN_HOUSE_TEE_SUPPORT) && \
@@ -319,7 +319,7 @@ ion_fd2sec_type(int fd, int *sec, int *iommu_sec_id,
 		ion_phys_addr_t *sec_hdl)
 {
 	enum TRUSTED_MEM_REQ_TYPE tmem_type = -1;
-	//struct ion_buffer *buffer;
+	struct ion_buffer *buffer;
 	struct ion_client *client;
 	struct ion_handle *handle;
 
