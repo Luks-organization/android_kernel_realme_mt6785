@@ -46,7 +46,6 @@ bool oppo_display_sau_support;
 unsigned long oplus_display_brightness = 0;
 unsigned int oplus_set_brightness = 0;
 unsigned int aod_light_mode = 0;
-extern unsigned int real_backlight_level;
 bool oplus_flag_lcd_off = false;
 unsigned long oplus_silence_mode = 0;
 unsigned int oplus_fp_silence_mode = 0;
@@ -521,12 +520,11 @@ int oplus_mtkfb_custom_data_init(struct platform_device *pdev)
 static ssize_t oplus_display_get_brightness(struct device *dev,
                                 struct device_attribute *attr, char *buf)
 {
-	unsigned int brightness = real_backlight_level;
-	if (brightness > LED_FULL || brightness < LED_OFF) {
-		brightness = LED_OFF;
+	if (oplus_display_brightness > LED_FULL || oplus_display_brightness < LED_OFF) {
+		oplus_display_brightness = LED_OFF;
 	}
 	//printk(KERN_INFO "oplus_display_get_brightness = %ld\n",oplus_display_brightness);
-	return sprintf(buf, "%d\n", brightness);
+	return sprintf(buf, "%ld\n", oplus_display_brightness);
 }
 
 int oplus_display_panel_set_brightness(void *buf)
@@ -554,12 +552,11 @@ int oplus_display_panel_get_brightness(void *buf)
 {
 	unsigned int *oplus_brightness = buf;
 
-	unsigned int brightness = real_backlight_level;
-	if (brightness > LED_FULL || brightness < LED_OFF) {
-		brightness = LED_OFF;
+	if (oplus_display_brightness > LED_FULL || oplus_display_brightness < LED_OFF) {
+		oplus_display_brightness = LED_OFF;
 	}
 
-	*brightness = brightness;
+	*oplus_brightness = oplus_display_brightness;
 
 	return 0;
 }
