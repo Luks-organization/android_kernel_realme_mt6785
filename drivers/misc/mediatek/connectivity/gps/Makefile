@@ -57,7 +57,7 @@ ccflags-y += -I$(srctree)/drivers/devfreq
 ###############################################################################
 
 MODULE_NAME := gps_drv
-ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
+ifeq ($(CONFIG_MTK_EXTRA_CONN_DRV_BUILD_IN),y)
 obj-y += $(MODULE_NAME).o
 else
 obj-m += $(MODULE_NAME).o

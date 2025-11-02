@@ -376,7 +376,7 @@ else
     ccflags-y += -DCFG_WIFI_IP_SET=1
 endif
 
-ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
+ifeq ($(CONFIG_MTK_EXTRA_CONN_DRV_BUILD_IN),y)
     ccflags-y += -DCFG_BUILT_IN_DRIVER=1
 else
     ccflags-y += -DCFG_BUILT_IN_DRIVER=0
@@ -500,7 +500,7 @@ endif
 
 MODULE_NAME := wlan_drv_gen4m
 ifeq ($(MODULE_NAME),)
-MODULE_NAME := wlan_drv_gen4m
+MODULE_NAME := wlan_$(shell echo $(strip $(WLAN_CHIP_ID)) | tr A-Z a-z)_$(CONFIG_MTK_COMBO_WIFI_HIF)
 endif
 
 ccflags-y += -DDBG=0

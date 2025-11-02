@@ -18,6 +18,13 @@ ifneq ($(KERNEL_OUT),)
     ccflags-y += -imacros $(KERNEL_OUT)/include/generated/autoconf.h
 endif
 
+ifndef TOP
+    TOP := $(srctree)/..
+endif
+ifeq ($(TARGET_BUILD_VARIANT),$(filter $(TARGET_BUILD_VARIANT),userdebug user))
+    ldflags-y += -s
+endif
+
 # Force build fail on modpost warning
 KBUILD_MODPOST_FAIL_ON_WARNINGS := y
 ###############################################################################
@@ -26,7 +33,7 @@ ccflags-y += -I$(srctree)/drivers/misc/mediatek/connectivity/power_throttling
 ###############################################################################
 GPS_PWR_TEST_SUPPORT :=n
 MODULE_NAME := gps_pwr
-ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
+ifeq ($(CONFIG_MTK_EXTRA_CONN_DRV_BUILD_IN),y)
 obj-y += $(MODULE_NAME).o
 else
 obj-m += $(MODULE_NAME).o

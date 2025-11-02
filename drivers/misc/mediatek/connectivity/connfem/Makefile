@@ -2,6 +2,10 @@
 # Necessary Check
 ###############################################################################
 
+ifneq ($(KERNEL_OUT),)
+    ccflags-y += -imacros $(KERNEL_OUT)/include/generated/autoconf.h
+endif
+
 ifndef TOP
     TOP := $(srctree)/..
 endif
@@ -20,11 +24,7 @@ ccflags-y += -Werror
 ###############################################################################
 # Compile Options
 ###############################################################################
-ifneq ($(TARGET_BUILD_VARIANT), user)
-    ccflags-y += -D CONNFEM_DBG=1
-else
-    ccflags-y += -D CONNFEM_DBG=0
-endif
+ccflags-y += -D CONNFEM_DBG=0
 
 
 ###############################################################################
@@ -39,7 +39,11 @@ ccflags-y += -I$(KO_CODE_PATH)/include
 # ConnFem Module
 ###############################################################################
 MODULE_NAME := connfem
-obj-$(CONFIG_MTK_CONNFEM) += $(MODULE_NAME).o
+ifeq ($(CONFIG_MTK_EXTRA_CONN_DRV_BUILD_IN),y)
+obj-y += $(MODULE_NAME).o
+else
+obj-m += $(MODULE_NAME).o
+endif
 
 $(MODULE_NAME)-objs += connfem_module.o
 $(MODULE_NAME)-objs += connfem_api.o

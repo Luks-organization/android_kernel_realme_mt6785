@@ -13,6 +13,18 @@
 # Necessary Check
 ifeq ($(CONFIG_MTK_GPS_SUPPORT), y)
 
+ifeq ($(AUTOCONF_H),)
+    $(error AUTOCONF_H is not defined)
+endif
+
+ccflags-y += -imacros $(AUTOCONF_H)
+ifndef TOP
+    TOP := $(srctree)/..
+endif
+ifeq ($(TARGET_BUILD_VARIANT),$(filter $(TARGET_BUILD_VARIANT),userdebug user))
+    ldflags-y += -s
+endif
+
 # Force build fail on modpost warning
 KBUILD_MODPOST_FAIL_ON_WARNINGS := y
 
@@ -50,12 +62,11 @@ ccflags-y += -I$(srctree)/drivers/misc/mediatek/connectivity/common
 ###############################################################################
 
 MODULE_NAME := gps_drv_stp
-ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
+ifeq ($(CONFIG_MTK_EXTRA_CONN_DRV_BUILD_IN),y)
 obj-y += $(MODULE_NAME).o
 else
 obj-m += $(MODULE_NAME).o
 endif
-
 GPS_DRV_CONTROL_LNA := y
 GPS_SRC_FOLDER := $(srctree)/drivers/misc/mediatek/connectivity/gps/gps_stp
 ccflags-y += -DMTK_GENERIC_HAL
