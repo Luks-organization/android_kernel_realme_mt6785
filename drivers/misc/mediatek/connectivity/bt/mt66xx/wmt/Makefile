@@ -4,6 +4,10 @@
 ###############################################################################
 # Necessary Check
 
+ifndef TOP
+    TOP := $(srctree)/..
+endif
+
 $(warning set PM_QOS_CONTROL=1)
 ccflags-y += -D PM_QOS_CONTROL=1
 ccflags-y += -Wno-unused-variable
