@@ -43,7 +43,7 @@ function compile_kernel() {
     ccache -M 50G
     ccache -o compression=true
 
-    make O=out ARCH=arm64 MT6785_defconfig
+    make O=out ARCH=arm64 salaa_defconfig
 
     PATH="${PWD}/clang/bin:${PATH}" \
 
