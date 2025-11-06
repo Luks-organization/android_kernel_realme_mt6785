@@ -93,13 +93,13 @@ enum sched_tunable_scaling sysctl_sched_tunable_scaling = SCHED_TUNABLESCALING_L
  *
  * (default: 0.75 msec * (1 + ilog(ncpus)), units: nanoseconds)
  */
-unsigned int sysctl_sched_min_granularity		= 500000ULL;
-unsigned int normalized_sysctl_sched_min_granularity	= 500000ULL;
+unsigned int sysctl_sched_min_granularity		= 625000ULL;
+unsigned int normalized_sysctl_sched_min_granularity	= 625000ULL;
 
 /*
  * This value is kept at sysctl_sched_latency/sysctl_sched_min_granularity
  */
-static unsigned int sched_nr_latency = 6;
+static unsigned int sched_nr_latency = 8;
 
 /*
  * After fork, child runs first. If set to 0 (default) then
@@ -117,10 +117,10 @@ unsigned int sysctl_sched_child_runs_first __read_mostly = 1;
  * (default: 1 msec * (1 + ilog(ncpus)), units: nanoseconds)
  * (current: 5 msec * (1 + ilog(ncpus)), units: nanoseconds)
  */
-unsigned int sysctl_sched_wakeup_granularity		= 5000000UL;
-unsigned int normalized_sysctl_sched_wakeup_granularity	= 5000000UL;
+unsigned int sysctl_sched_wakeup_granularity		= 2500000UL;
+unsigned int normalized_sysctl_sched_wakeup_granularity	= 2500000UL;
 
-unsigned int __read_mostly sysctl_sched_migration_cost	= 33000UL;
+unsigned int __read_mostly sysctl_sched_migration_cost	= 2000000UL;
 
 #ifdef CONFIG_SCHED_WALT
 unsigned int sysctl_sched_use_walt_cpu_util = 1;
