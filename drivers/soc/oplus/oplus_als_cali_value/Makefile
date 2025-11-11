@@ -1,3 +1,4 @@
-# ifdef OPLUS_FEATURE_SENSOR 
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2018-2020 Oplus. All rights reserved.
+
 obj-$(CONFIG_OPLUS_ALS_CALI)	+=  oplus_als_cali_value.o
-# endif /* OPLUS_FEATURE_SENSOR */
