@@ -2,7 +2,7 @@
 VERSION = 4
 PATCHLEVEL = 14
 SUBLEVEL = 356
-EXTRAVERSION = -openela-rc1
+EXTRAVERSION =
 NAME = Petit Gorille
 
 # *DOCUMENTATION*
@@ -762,6 +762,9 @@ ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS   += -Os
 else
 KBUILD_CFLAGS   += -O3
+endif
+ifeq ($(cc-name),clang)
+KBUILD_CFLAGS += $(call cc-option,-mcpu=cortex-a76.cortex-a55)
 endif
 
 ifdef CONFIG_LLVM_POLLY
